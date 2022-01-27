@@ -37,6 +37,7 @@ $footerTitle-color: #999;
    img {
       width: 400px;
       height: 220px;
+      cursor: pointer;
    }
    .datePost {
       position: relative;
@@ -204,6 +205,7 @@ $footerTitle-color: #999;
    background-position: center center;
    background-repeat: no-repeat;
    margin-bottom: 40px;
+   background-image: url('../images/post_bg.jpg');
    img {
       width: 100%;
       height: 450px;
@@ -705,4 +707,11 @@ form {
       background: transparent;
       transition: 0.3s;
    }
+}
+
+.preloaderSVG {
+   margin: auto;
+   background: none;
+   display: block;
+   shape-rendering: auto;
 }

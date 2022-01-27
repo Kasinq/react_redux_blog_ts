@@ -1,5 +1,8 @@
 import React from 'react';
+import SvgPreloader from './SvgPreloader';
 
-export default function Preloader() {
-  return <div className="spinner"><img src='../images/Spinner-1s-200px.svg' alt='Идет загрузка' /></div>
+export const Preloader = () => {
+  return <div className="spinner">
+    <SvgPreloader />
+  </div>
 }

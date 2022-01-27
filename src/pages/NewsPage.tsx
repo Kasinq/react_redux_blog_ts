@@ -7,7 +7,8 @@ import Pagination from '../Components/Pagination';
 import Search from '../Components/Search';
 import { State } from '../state';
 import '../styles/style.scss'
-import Preloader from '../UI/Preloader';
+import {Preloader} from '../UI/Preloader';
+
 
 const NewsPage = () => {
   const news = useSelector((state: State) => state.news.news)

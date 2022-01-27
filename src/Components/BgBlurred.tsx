@@ -3,8 +3,15 @@ import { useSelector } from 'react-redux';
 import { State } from '../state'; 
  
 const BgBlurred:FC = ({children}) => {
-    const background = useSelector((state: State) => state.news.background)
+    // const background = useSelector((state: State) => state.news.background)
     
+    const background = {
+        images:['../images/post_bg_2.jpg', `url('../images/post_bg.jpg')`],
+        text:['PAGE BACKGROUND HEADER', 'THIS IS OPTIONAL PAGE TITLE']
+    }
+        
+    
+
     const [scrolling, setScrolling] = useState(0)
 
     window.addEventListener('scroll', () => {
@@ -12,8 +19,8 @@ const BgBlurred:FC = ({children}) => {
     })
 
     return (
-        <div className="PageBacgroundHeader" style={{ backgroundImage: background.images[1] }}>
-            <img style={{ opacity: scrolling }} src={background.images[0]} alt="" />
+        <div className="PageBacgroundHeader">
+            <img style={{ opacity: scrolling }} src={require('../images/post_bg_2.jpg')} alt="" />
             <div className="PageBacgroundHeader-content">
                 {children}
                 <h1 className="NewsCategory">

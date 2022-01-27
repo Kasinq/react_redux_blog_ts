@@ -7,7 +7,7 @@ import BgBlurred from '../Components/BgBlurred';
 import { Comments } from '../Components/Comments';
 import { NewsContent } from '../Components/NewsContent';
 import { State } from '../state';
-import Preloader from '../UI/Preloader';
+import {Preloader} from '../UI/Preloader';
 
 const NewsDitail = () => {
     const newsId = useParams()

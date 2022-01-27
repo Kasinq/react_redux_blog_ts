@@ -10,7 +10,7 @@ function App() {
     <>
       <Header />
       <Routes>
-        <Route path='/' element={<NewsPage />} />
+        <Route path='/react_redux_blog_ts' element={<NewsPage />} />
         <Route path='/news/:id' element={<NewsDitail />} />
       </Routes>
       <Footer />

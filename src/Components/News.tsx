@@ -1,6 +1,5 @@
 import React, { FC, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-
  
 import ModalWindow from '../UI/ModalWindow';
 
@@ -46,7 +45,7 @@ const News: FC<NewsProps> = ({ news }) => {
             <div className='catalog'>
                 {news.map((news: any) =>
                     <div key={news.id} onClick={() => router(`/news/${news.id}`)} >
-                        <img src='../images/post_img.jpg' alt="post-img" />
+                        <img src={require('../images/post_img.jpg')} alt="post-img" />
                         <h2 className="titlePost">{news.title}</h2>
                         <div onClick={(e) => e.stopPropagation()}>
                             <div className="datePost"><span>July 22, 2021</span></div>
