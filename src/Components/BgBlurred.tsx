@@ -1,32 +1,44 @@
-import React, { FC, useState } from 'react';
-import { useSelector } from 'react-redux';
-import { State } from '../state'; 
- 
-const BgBlurred:FC = ({children}) => {
-    // const background = useSelector((state: State) => state.news.background)
-    
-    const background = {
-        images:['../images/post_bg_2.jpg', `url('../images/post_bg.jpg')`],
-        text:['PAGE BACKGROUND HEADER', 'THIS IS OPTIONAL PAGE TITLE']
-    }
-        
-    
+import React, { FC, useEffect, useLayoutEffect, useState } from 'react';
+
+interface BgBlurred {
+    backgroundImg?: string
+    backgroundTitle: string
+    backgroundOptional: string
+}
+
+const BgBlurred: FC<BgBlurred> = ({ backgroundImg = 'https://s1.1zoom.me/big0/470/Christmas_Nuts_Mandarine_Wood_planks_Branches_Pine_575378_1280x853.jpg',
+    backgroundTitle, backgroundOptional, children }) => {
 
     const [scrolling, setScrolling] = useState(0)
 
-    window.addEventListener('scroll', () => {
-        setScrolling(window.scrollY / 380)
-    })
+    useEffect(() => {
+        window.addEventListener('scroll', () => {
+            setScrolling(window.scrollY / 40)
+        })
+        return () => setScrolling(0)
+    }, [])
+
+    const [scrollImg, setScrollImg] = useState(50)
+
+    // useEffect(() => {
+    //     window.addEventListener('scroll', () => {
+    //         setScrollImg(window.scrollY / 40)
+    //     })
+    //     return () => setScrollImg(0)
+    // }, [])
 
     return (
-        <div className="PageBacgroundHeader">
-            <img style={{ opacity: scrolling }} src={require('../images/post_bg_2.jpg')} alt="" />
-            <div className="PageBacgroundHeader-content">
+        <div className="PageBacgroundHeader" >
+            <div className="PageBacgroundHeader-content" style={{
+                filter: `blur(${scrolling}px)`, backgroundImage: `url(${backgroundImg})`,
+                backgroundPosition: `100% ${scrollImg}%`
+            }}
+            >
                 {children}
                 <h1 className="NewsCategory">
-                    {background.text[0]}
+                    {backgroundTitle}
                 </h1>
-                <div>{background.text[1]}</div>
+                <div>{backgroundOptional.toUpperCase()}</div>
             </div>
         </div>
     )

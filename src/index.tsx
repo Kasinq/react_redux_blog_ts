@@ -2,8 +2,9 @@ import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import { BrowserRouter, Routes } from 'react-router-dom';
 import App from './App';
-import { store } from './state';
+import { setupStore } from './store/store';
 
+const store = setupStore() 
 
 ReactDOM.render(
   <BrowserRouter>

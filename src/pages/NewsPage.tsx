@@ -1,46 +1,44 @@
-import React, { useEffect, useMemo, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { FetchNews } from '../api/fetchNest';
+import React, { useEffect, useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { useParams } from 'react-router';
+import AddNews from '../Components/AddNews';
 import BgBlurred from '../Components/BgBlurred';
-import News from '../Components/News';
+import { NewsItem } from '../Components/NewsItem';
 import Pagination from '../Components/Pagination';
 import Search from '../Components/Search';
-import { State } from '../state';
+import { useAppSelector } from '../hooks/redux';
+import { fetchPosts } from '../store/reducers/ActionCreators';
+import { RootState } from '../store/store';
 import '../styles/style.scss'
-import {Preloader} from '../UI/Preloader';
-
+import SvgPreloader from '../UI/SvgPreloader';
 
 const NewsPage = () => {
-  const news = useSelector((state: State) => state.news.news)
+  const { posts, isLoading, limit, page, rating, userId, totalCount, error } = useAppSelector((state:RootState) => state.postsReducer)
+
   const dispatch = useDispatch()
 
-  const [page, setPage] = useState(1)
-  const [limit, setLimit] = useState(6)
-  const [isLoading, setIsLoading] = useState(false);
+  const {id} = useAppSelector((state:RootState) => state.userAuthReducer)
+
   const [search, setSearch] = useState('')
-  // Search 
-  const sortedAndSearchNews = useMemo((n = news) => {
-    return n.filter((news: any) => news.title.toLowerCase().includes(search.toLowerCase().trim()))
-  }, [search, news])
+  const { title } = useParams()
 
   useEffect(() => {
-    FetchNews(dispatch, page, limit, setIsLoading)
-  }, [page, limit])
+    dispatch(fetchPosts(page, limit, rating, search.toLowerCase(), title, id))
+  }, [page, limit, rating, userId, search, title])
 
-  return (
-    <>
-      <BgBlurred>
-        <Search search={search} setSearch={setSearch} setLimit={setLimit} />
-      </BgBlurred>
+  return <>
+    <BgBlurred backgroundTitle='Latest news' backgroundOptional='THIS IS OPTIONAL PAGE TITLE'>
+      <Search setSearch={setSearch} />
+    </BgBlurred>
+    {isLoading ? <SvgPreloader />
+      :
       <div className='container'>
-        {isLoading 
-        ? <News news={sortedAndSearchNews} />
-        : <Preloader />
-        }
-        <Pagination page={page} setPage={setPage} limit={limit} setIsLoading={setIsLoading} />
+        <AddNews />
+        <NewsItem posts={posts} />
       </div>
-    </>
-  )
+    }
+    <Pagination selectedPage={page} type='posts' limit={limit} totalCount={totalCount} rating={rating} />
+  </>
 }
 
 export default NewsPage;

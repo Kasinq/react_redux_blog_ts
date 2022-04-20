@@ -1,43 +1,54 @@
-import React, { useEffect, useState } from 'react';
+import React, { FC, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useParams } from 'react-router';
-import { FetchNewsDitail } from '../api/fetchNest';
+import { useNavigate, useParams } from 'react-router';
+import SvgPreloader from '../UI/SvgPreloader';
+import { RootState } from '../store/store';
+import { useAppSelector } from '../hooks/redux';
+import { fetchPost, removeNews } from '../store/reducers/ActionCreators';
 import { AuthorInfo } from '../Components/AuthorInfo';
 import BgBlurred from '../Components/BgBlurred';
-import { Comments } from '../Components/Comments';
 import { NewsContent } from '../Components/NewsContent';
-import { State } from '../state';
-import {Preloader} from '../UI/Preloader';
+import { Comments } from '../Components/Comments';
+import { IoLogoBitbucket } from 'react-icons/io';
 
-const NewsDitail = () => {
-    const newsId = useParams()
+
+const NewsDitail: FC = () => {
+    const { id } = useParams()
+    const history = useNavigate()
     const dispatch = useDispatch()
-    const news = useSelector((state: State) => state.newsDitail.news)
-    const [isLoading, setIsLoading] = useState(false);
+
+    const { post, isLoading, error } = useAppSelector((state: RootState) => state.postDitailReducer)
+
+    const user = useAppSelector((state: RootState) => state.userAuthReducer)
+    const authorPost = useAppSelector((state: RootState) => state.userReducer)
 
     useEffect(() => {
-        if (newsId.id && newsId.id !== '') {
-            FetchNewsDitail(dispatch, +newsId.id, setIsLoading)
-        }
-    }, [newsId.id])
+        dispatch(fetchPost(id))
+        window.scrollTo(0, 0)
+    }, [])
+
+    const remove = async () => {
+        await removeNews(id)
+        history(`/react_redux_blog_ts`)
+    }
 
     return (
         <>
-            <BgBlurred />
-            <div className='container'>
-                {isLoading
-                    ? <>
+            {isLoading ? <SvgPreloader />
+                : <>
+                    <BgBlurred backgroundImg={'' + post.img}
+                        backgroundTitle='Make new friends' backgroundOptional='THIS IS OPTIONAL PAGE TITLE' />
+                    <div className='container'>
                         <div className='newsInfoBlock'>
                             <div>
-                                <NewsContent news={news} />
-                                <Comments newsId={newsId.id} />
+                                {user.id === authorPost.user.id && <button className='remove_post' title='Delete post' onClick={remove}>Delete <IoLogoBitbucket /></button>}
+                                <NewsContent />
+                                <Comments newsId={id} userId={user.id} authorPostId={authorPost.user.id} />
                             </div>
-                            <AuthorInfo />
+                            <AuthorInfo news={post} />
                         </div>
-                    </>
-                    : <Preloader />
-                }
-            </div>
+                    </div>
+                </>}
         </>
     );
 };

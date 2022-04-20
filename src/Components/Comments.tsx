@@ -1,46 +1,59 @@
 import React, { FC, useEffect, useState } from 'react';
+import { IoCloseOutline } from 'react-icons/io5';
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchComments } from '../api/fetchNest';
-import { State } from '../state';
+import { useNavigate } from 'react-router';
+import { useAppSelector } from '../hooks/redux';
+import { IComent, IComentator } from '../models/IComentator';
+import { fetchComments } from '../store/reducers/ActionCreators';
+import { RootState } from '../store/store';
+import { Comment } from '../UI/Comment';
+import SvgPreloader from '../UI/SvgPreloader';
+import { dateMonth } from '../utils/convertDate';
+import { lastComment } from '../utils/lastComment';
+
 import { AddComment } from './AddComment';
 
 interface CommentsProps {
     newsId: any
+    userId: number
+    authorPostId: number | undefined
 }
 
-export const Comments: FC<CommentsProps> = ({ newsId }) => {
+export const Comments: FC<CommentsProps> = ({ newsId, userId, authorPostId }) => {
 
+    const { isLoading, comments, users, error } = useAppSelector((state: RootState) => state.commentsReducer)
     const dispatch = useDispatch()
-    const comments = useSelector((state: State) => state.newsComments.comments)
-    const [isLoaging, setIsLoaging] = useState(false);
-    const [showComments, setshowComments] = useState(false);
+    const [showComments, setshowComments] = useState(false)
+
+    const [isRemove, setIsRemove] = useState(false)
 
     useEffect(() => {
-        fetchComments(dispatch, +newsId, setIsLoaging)
-    }, [])
+        dispatch(fetchComments(newsId))
+    }, [isRemove])
 
-    const commentText = (comment: any) => {
-        return <div className="commentInfo" key={comment.id}>
-            <img className="commentAuthor" src="https://cdn.quotesgram.com/img/54/43/246061852-rust_sq-bbaf9ee9f99a9d4391c4979ca94a3fb4835a3b49.jpg" alt="" />
-            <div className="body">
-                <h3 className="email">{comment.email}</h3>
-                <p className="text-comment">{comment.body}</p>
-            </div>
-        </div>
-    }
-    
     return (
         <>
-            {
-                comments.map((comment: any, i: number) =>
-                    showComments && comments
-                        ? commentText(comment)
-                        : (i === comments.length - 1) && commentText(comment)
-                )
-            }
-            <div className='showComments' onClick={() => setshowComments(!showComments)}>{showComments ? 'Hide comments' : 'All comments'}</div>
-            <hr/>
-            <AddComment postId={newsId} />
+            <div className='comments'>
+                {isLoading
+                    ? <SvgPreloader />
+                    : lastComment(comments, showComments).map((comment: IComent) => {
+                        return <div key={comment.id} >
+                            {users.map((user: IComentator) => {
+                                if (comment.userId == user.id) 
+                                return <Comment key={user.id} comment={comment} user={user} userId={userId} authorPostId={authorPostId}
+                                isRemove={isRemove} setIsRemove={setIsRemove} />
+                            })
+                            }
+                        </div>
+                    })
+                }
+                <div className='showComments' onClick={() => setshowComments(!showComments)}>
+                    {showComments ? 'Hide comments' : 'All comments'}
+                </div>
+                <hr />
+                <AddComment postId={newsId} />
+            </div>
+
         </>
     )
 }

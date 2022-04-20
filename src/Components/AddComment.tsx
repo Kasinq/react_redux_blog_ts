@@ -1,6 +1,8 @@
 import React, { FC, useState } from 'react';
-import { useSelector } from 'react-redux';
-import { State } from '../state';
+import { useDispatch, useSelector } from 'react-redux';
+import { useAppSelector } from '../hooks/redux';
+import { createComments, fetchComments } from '../store/reducers/ActionCreators';
+import { RootState } from '../store/store';
 
 interface AddCommentProps {
     postId: string | number
@@ -8,20 +10,18 @@ interface AddCommentProps {
 
 export const AddComment: FC<AddCommentProps> = ({ postId }) => {
 
-    const [name, setName] = useState('')
-    const [email, setEmail] = useState('')
-    const [comment, setComment] = useState('')
+    const dispatch = useDispatch()
 
-    const comments = useSelector((state: State) => state.newsComments.comments)
+    const [comment, setComm] = useState('')
+    const { id } = useAppSelector((state: RootState) => state.userAuthReducer)
 
-    const addComment = (e:React.MouseEvent<HTMLButtonElement>) => {
+    const [text, setText] = useState(0)
+
+
+    const addComment = (e: React.MouseEvent<HTMLButtonElement>) => {
         e.preventDefault()
-        if (comment && email)
-            comments.push({ postId: postId, id: Date.now(), name: name, email: email, body: comment })
-        else alert("Поля відмічені '*' обов'язкові до заповнення")
-        setName('')
-        setEmail('')
-        setComment('')
+        dispatch(createComments(postId, comment, id.toString()))
+        setComm('')
     }
 
     return <div className="leaveComment">
@@ -31,33 +31,18 @@ export const AddComment: FC<AddCommentProps> = ({ postId }) => {
         <div className="desc">Your email address will not be published. Required fields are marked *</div >
         <form>
             <span>Comment</span>
-            <textarea
-                onChange={(e) => setComment(e.target.value)}
-                value={comment}
-            />
-            <div className="comentatorInfo">
-                <div>
-                    <span>Name*</span>
-                    <input
-                        onChange={(e) => setName(e.target.value)}
-                        value={name}
-                        placeholder="Name*"
-                        type="text" />
-                </div>
-                <div>
-                    <span>Email*</span>
-                    <input
-                        onChange={(e) => setEmail(e.target.value)}
-                        value={email}
-                        placeholder="Email*"
-                        type="text" />
-                </div>
-                <div className="webSite">
-                    <span>Website</span>
-                    <input placeholder="Website" type="text" />
-                </div>
+            <div className='comment__area'>
+                <textarea
+                    onChange={(e) => setComm(e.target.value)}
+                    maxLength={250}
+                    value={comment}
+                    onKeyUp={() => setText(comment.length)}
+                />
             </div>
-            <button onClick={(e) => addComment(e)} className="leave-comment">Post Comment</button>
+            <div className='comment__footer'>
+                <button onClick={(e) => addComment(e)} className="leave-comment">Post Comment</button>
+                <span>{text} / 250</span>
+            </div>
         </form>
     </div>
 }

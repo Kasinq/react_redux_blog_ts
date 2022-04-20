@@ -1,20 +1,32 @@
-import React, { useState } from 'react';
+import React, { FC, useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router';
+import { useAppSelector } from '../hooks/redux';
+import { IPost } from '../models/IPosts';
+import { fetchUser } from '../store/reducers/ActionCreators';
+import { RootState } from '../store/store';
 import { SubscriptionForm } from './SubscriptionForm';
 
-export const AuthorInfo = () => {
+interface AuthorInfoProps {
+    news: IPost
+}
 
-    // профіль описання 
-    const [profileDescription, setProfileDescription] = useState('Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus.')
+export const AuthorInfo: FC<AuthorInfoProps> = ({ news }) => {
+    const dispatch = useDispatch()
+    const router = useNavigate()
+
+    const {user} = useAppSelector((state:RootState) => state.userReducer)
+
+    useEffect(() => {
+        dispatch(fetchUser(news.typeId?.toString()))
+    }, [])
 
     return (
         <div className='authorInfo'>
-            <div className="about-me">
-                <div>ABOUT ME</div>
-                <img className="avatar" src="https://themegoods-cdn-pzbycso8wng.stackpathdns.com/letsblog/demo/wp-content/uploads/2015/07/photography_2.jpg" alt="" />
-                <p className="textDescription">{profileDescription}</p>
-                <div className="signature">
-                    <img className="sign" src="https://themegoods-cdn-pzbycso8wng.stackpathdns.com/letsblog/demo/wp-content/uploads/2015/07/signature.png" alt="" />
-                </div>
+            <div className="about-me" onClick={() => router(`/user/${user.id}`)}>
+                <div>Author</div>
+                <img className="avatar" src={`${user.img}`} alt="" />
+                <div className="authorSign" >{user.username}</div>
             </div>
             <div className="subscription">
                 <SubscriptionForm />
