@@ -1,16 +1,13 @@
 {
   "files": {
-    "main.css": "/react_redux_blog_ts/static/css/main.9a781689.css",
-    "main.js": "/react_redux_blog_ts/static/js/main.8f302c6a.js",
-    "static/media/post_bg.jpg": "/react_redux_blog_ts/static/media/post_bg.0e1737980c7869ee284e.jpg",
-    "static/media/post_img.jpg": "/react_redux_blog_ts/static/media/post_img.20cc5879c638f5b8ed4e.jpg",
-    "static/media/post_bg_2.jpg": "/react_redux_blog_ts/static/media/post_bg_2.158966267b9191e96e97.jpg",
+    "main.css": "/react_redux_blog_ts/static/css/main.2282d3f1.css",
+    "main.js": "/react_redux_blog_ts/static/js/main.d0aa9af0.js",
     "index.html": "/react_redux_blog_ts/index.html",
-    "main.9a781689.css.map": "/react_redux_blog_ts/static/css/main.9a781689.css.map",
-    "main.8f302c6a.js.map": "/react_redux_blog_ts/static/js/main.8f302c6a.js.map"
+    "main.2282d3f1.css.map": "/react_redux_blog_ts/static/css/main.2282d3f1.css.map",
+    "main.d0aa9af0.js.map": "/react_redux_blog_ts/static/js/main.d0aa9af0.js.map"
   },
   "entrypoints": [
-    "static/css/main.9a781689.css",
-    "static/js/main.8f302c6a.js"
+    "static/css/main.2282d3f1.css",
+    "static/js/main.d0aa9af0.js"
   ]
 }
