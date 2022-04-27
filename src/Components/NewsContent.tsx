@@ -10,7 +10,6 @@ import { Tags } from './Tags';
 
 export const NewsContent: FC = () => {
     const dispatch = useDispatch()
-
     const { id } = useAppSelector((state: RootState) => state.userAuthReducer)
     const { post, isLoading, error } = useAppSelector((state: RootState) => state.postDitailReducer)
     const {user} = useAppSelector((state:RootState) => state.userReducer)
