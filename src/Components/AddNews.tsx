@@ -31,13 +31,6 @@ const AddNews: FC = () => {
     const addPost = async (e: React.MouseEvent<HTMLButtonElement>) => {
         e.preventDefault()
         const formData = new FormData()
-        const postInfo = {
-            name: name.toLocaleLowerCase(),
-            description: description,
-            typeId: userAuth.id.toString(),
-            brandId: '1',
-            info: tags2
-        }
         formData.append("name", name.toLocaleLowerCase())
         formData.append("description", description)
         formData.append("typeId", userAuth.id.toString())
@@ -45,7 +38,7 @@ const AddNews: FC = () => {
         formData.append("info", tags2)
         formData.append("file", fileImg)
         try {
-            dispatch(createPost(formData, postInfo))
+            dispatch(createPost(formData))
             setModal(!modal)
         } catch (e: any) {
             setError(e.response?.data.message)
@@ -72,7 +65,7 @@ const AddNews: FC = () => {
     return (
         <>
             <ModalWindow visible={modal} setVisible={setModal}>
-                {Object.keys(userAuth).length === 0 ? <><div className='authorisations'>
+                {userAuth.id === 0 ? <><div className='authorisations'>
                     <div> Зареєструйтесь для додавання постів</div>
                     <span onClick={() => router(`/auth`)}>Registration</span>
                 </div>

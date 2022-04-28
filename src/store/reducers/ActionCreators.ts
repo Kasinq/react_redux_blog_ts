@@ -98,7 +98,7 @@ export const getUserPosts = (page: number, limit: number, userId: number) =>
         }
     }
 
-export const createPost = (file: any, postInfo: any) => async (dispatch: AppDispatch) => {
+export const createPost = (file: any) => async (dispatch: AppDispatch) => {
     try {
         dispatch(postsSlice.actions.postsFetching())
         const { data } = await axios.post(`https://stark-oasis-40782.herokuapp.com/upload`, file)
@@ -210,7 +210,7 @@ export const removeNews = async (userId: string | undefined) => {
 
 export const setLike = (userId: number, postId?: number, rating?: number, userPostId?: number) =>
     async (dispatch: AppDispatch) => {
-        const {data} = await axios.post(`https://stark-oasis-40782.herokuapp.com/api/device/${postId}/view`, { rating, userId, userPostId })
+        const { data } = await axios.post(`https://stark-oasis-40782.herokuapp.com/api/device/${postId}/view`, { rating, userId, userPostId })
         return
     }
 
