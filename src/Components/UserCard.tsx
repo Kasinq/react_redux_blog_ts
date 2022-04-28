@@ -36,7 +36,7 @@ export const UserCard: FC<UserCardProps> = ({ user, authUserId }) => {
             setIsFriend(data)
         })
     }, [])
-    
+
     return (
         <div className='users_inner' onClick={() => router(`/user/${user.id}`)} >
             <div style={{ backgroundImage: `url(${user.img})` }} className='users_item'>
@@ -58,8 +58,8 @@ export const UserCard: FC<UserCardProps> = ({ user, authUserId }) => {
                 </div>
                     : <>{authUserId ?
                         <button className='subscribeBtn'
-                        onClick={(e) => onSubscribe(e, user.id)}>Follow</button>
-                        : <button className='subscribeBtn'>Open profile</button>
+                            onClick={(e) => onSubscribe(e, user.id)}>Follow</button>
+                        : <button className='subscribeBtn'>Show</button>
                     }</>
                 }
             </div>
