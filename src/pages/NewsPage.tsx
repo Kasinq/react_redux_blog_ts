@@ -27,7 +27,7 @@ const NewsPage = () => {
   }, [page, limit, rating, userId, search, title])
 
   return <>
-    <BgBlurred backgroundTitle='Latest news' backgroundOptional='THIS IS OPTIONAL PAGE TITLE'>
+    <BgBlurred backgroundTitle='Latest news' backgroundOptional='THIS IS OPTIONAL PAGE TITLE' height='30%'>
       <Search setSearch={setSearch} />
     </BgBlurred>
     {isLoading ? <SvgPreloader />

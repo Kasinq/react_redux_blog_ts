@@ -36,8 +36,7 @@ const NewsDitail: FC = () => {
         <>
             {isLoading ? <SvgPreloader />
                 : <>
-                    <BgBlurred backgroundImg={'' + post.img}
-                        backgroundTitle='Make new friends' backgroundOptional='THIS IS OPTIONAL PAGE TITLE' />
+                    <BgBlurred backgroundImg={'' + post.img} style='bg-container-2'/>
                     <div className='container'>
                         <div className='newsInfoBlock'>
                             <div>

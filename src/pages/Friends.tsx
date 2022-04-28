@@ -23,7 +23,7 @@ export const Friends: FC = () => {
 
   return (<>
     <BgBlurred backgroundImg='https://themegoods-cdn-pzbycso8wng.stackpathdns.com/letsblog/demo/wp-content/uploads/2015/07/15794918936_855690cb09_b1.jpg'
-      backgroundTitle='Make new friends' backgroundOptional='here you are welcome'>
+      backgroundTitle='Make new friends' backgroundOptional='here you are welcome' height='30%'>
       <Search setSearch={setSearch} />
     </BgBlurred>
     {isLoading ? <SvgPreloader />
