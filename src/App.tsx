@@ -15,10 +15,7 @@ import queryString from 'query-string'
 function App() {
   const dispatch = useDispatch()
   const location = useLocation();
-  const {user}:any = queryString.parse(location.search);
-
-  console.log(user);
-  
+  const {user}:any = queryString.parse(location.search);  
 
   useEffect(() => {
     if (user) {
