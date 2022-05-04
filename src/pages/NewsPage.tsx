@@ -3,6 +3,7 @@ import { useDispatch } from 'react-redux';
 import { useParams } from 'react-router';
 import AddNews from '../Components/AddNews';
 import BgBlurred from '../Components/BgBlurred';
+import { InstagramGetPosts } from '../Components/InstagramGetPosts';
 import { NewsItem } from '../Components/NewsItem';
 import Pagination from '../Components/Pagination';
 import Search from '../Components/Search';

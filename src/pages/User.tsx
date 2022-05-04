@@ -23,7 +23,7 @@ export const User: FC = () => {
   }, [id])
 
   return <div className='personalInfo'>
-    <UserInfo posts={posts} />
+    <UserInfo/>
     {Object.keys(posts).length !== 0 &&
       <>
         <PageTitle title='Posts' />

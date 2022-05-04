@@ -14,6 +14,7 @@ import { userAuthSlice } from './UserAuthSlice'
 import { IAuthUser, IToken, IUser } from "../../models/IUser";
 import { IComentInfo } from "../../models/IComentator";
 import UsersPostsSlice, { usersPostsSlice } from "./UsersPostsSlice";
+import { IChangeProfile } from "../../models/IChangeProfile";
 
 export const fetchUsers = (limit: number, page: number, userId: number, searchTerm?: string) => async (dispatch: AppDispatch) => {
     try {
@@ -169,11 +170,12 @@ export const unSubscribe = (userId: number, friendsId: number | undefined) => as
     }
 }
 
-export const addUserName = (id: string | undefined, username: string, email: string, about: string) =>
+export const addUserName = (id: string | undefined, changeProfileInfo: IChangeProfile) =>
     async (dispatch: AppDispatch) => {
         try {
+            console.log(changeProfileInfo)
             dispatch(userSlice.actions.userFetching())
-            const { data } = await axios.post<IUser>(`https://stark-oasis-40782.herokuapp.com/api/user/${id}/update`, { username, email, about, id })
+            const { data } = await axios.post<IUser>(`https://stark-oasis-40782.herokuapp.com/api/user/${id}/update`, { changeProfileInfo, id })
             dispatch(userSlice.actions.userFetchingSuccess(data))
         } catch (error: any) {
             dispatch(userSlice.actions.userFetchingError(error.message))
@@ -210,8 +212,7 @@ export const removeNews = async (userId: string | undefined) => {
 
 export const setLike = (userId: number, postId?: number, rating?: number, userPostId?: number) =>
     async (dispatch: AppDispatch) => {
-        const { data } = await axios.post(`https://stark-oasis-40782.herokuapp.com/api/device/${postId}/view`, { rating, userId, userPostId })
-        return
+        await axios.post(`https://stark-oasis-40782.herokuapp.com/api/device/${postId}/view`, { rating, userId, userPostId })
     }
 
 export const getUsersNews = (limit: number, page: number, userid: string | undefined) =>

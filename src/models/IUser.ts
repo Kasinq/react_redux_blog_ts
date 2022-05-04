@@ -1,9 +1,9 @@
 export interface IAuthUser {
-        id: number
-        email: string
-        exp: number
-        iat: number
-        role: string
+    id: number
+    email: string
+    exp: number
+    iat: number
+    role: string
 }
 
 export interface IToken {
@@ -18,7 +18,10 @@ export interface IUser {
     posts?: number
     subscribers?: number
     views?: number
+    facebook?: string
     instagram?: string
+    pinterest?: string
+    twiter?: string
     about?: string
     createdAt?: string
     username?: string

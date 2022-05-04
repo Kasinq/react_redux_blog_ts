@@ -290,6 +290,7 @@ body {
       letter-spacing: 1px;
    }
 }
+
 .NewsCategory {
    font-weight: 400;
    font-size: 40px;
@@ -477,19 +478,7 @@ hr {
       padding: 20px 14px;
    }
 
-   .social {
-      display: flex;
-      justify-content: space-around;
 
-      img {
-         width: 20px;
-         margin-top: 10px;
-      }
-
-      img:not(:first-child) {
-         margin-left: 10px;
-      }
-   }
 
    .instagram-pic {
       display: grid;
@@ -502,6 +491,23 @@ hr {
 
    .instagram {
       margin-bottom: 40px;
+   }
+}
+
+.social {
+   display: grid;
+   grid-template-columns: repeat(4, 1fr);
+   grid-auto-rows: minmax(auto-fill, 1fr);
+   grid-column-gap: 8px;
+   grid-row-gap: 5px;
+   text-align: center;
+
+   img {
+      margin-top: 10px;
+   }
+
+   img:not(:first-child) {
+      margin-left: 10px;
    }
 }
 
@@ -901,7 +907,7 @@ form {
 .auth {
    position: relative;
    display: flex;
-
+   margin-bottom: 40px;
    // justify-content: space-center;
    .click {
       width: 30%;
@@ -939,10 +945,10 @@ form {
       display: grid;
       grid-auto-columns: minmax(auto-fill, 1fr);
       grid-template-rows: 1fr;
+      grid-gap: 10px;
       padding: 30px;
       margin-top: 30%;
       align-items: center;
-
       input {
          box-sizing: border-box;
          margin: 0;
@@ -955,7 +961,6 @@ form {
          background-color: transparent;
          font-size: 16px;
          font-style: italic;
-         margin-top: 15px;
          width: 260px;
       }
 
@@ -969,7 +974,6 @@ form {
          background-color: transparent;
          border: none;
          padding: 6px;
-         margin-top: 30px;
          cursor: pointer;
       }
 
@@ -1005,8 +1009,8 @@ form {
 
    .personalInfo__body {
       display: grid;
-      grid-template-columns: 1fr 2fr;
-      grid-gap: 10px;
+      grid-template-columns: 1fr 3fr;
+      grid-gap: 40px;
 
       button {
          width: 100%;
@@ -1159,11 +1163,12 @@ form {
             font-size: 26px;
             font-weight: 400;
             padding: 6px;
-            margin-top: 10px;
          }
       }
    }
 }
+
+
 
 .LogIn {
    display: flex;
@@ -1315,6 +1320,23 @@ form {
    }
 }
 
+.account__social {
+   display: grid;
+   grid-template-columns: 4fr 1fr;
+   text-align: center;
+   text-transform: uppercase;
+   letter-spacing: 1px;
+   font-weight: 400;
+   text-align: center;
+   line-height: 1.7;
+   color: #222;
+   font-size: 14px;
+
+   h4 {
+      text-align: left;
+   }
+}
+
 .page__title {
    hr {
       margin-top: 0;
@@ -1399,7 +1421,25 @@ form {
    overflow-y: scroll;
    margin-bottom: 40px;
 }
+
 .bg-container {
    max-height: 450px;
    margin-bottom: 40px;
+}
+
+.set__social {
+   max-width: 20px;
+   display: grid;
+   grid-template-rows: 1fr;
+   grid-gap: 10px
+}
+
+.social_btn {
+   padding: 6px;
+   .google {
+      color: rgb(91, 91, 91);
+   }
+   .google:hover {
+      color: #000;
+   }
 }

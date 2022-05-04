@@ -5,6 +5,7 @@ import { useAppSelector } from '../hooks/redux';
 import { IPost } from '../models/IPosts';
 import { fetchUser } from '../store/reducers/ActionCreators';
 import { RootState } from '../store/store';
+import { SocialItems } from './SocialItems';
 import { SubscriptionForm } from './SubscriptionForm';
 
 interface AuthorInfoProps {
@@ -33,12 +34,7 @@ export const AuthorInfo: FC<AuthorInfoProps> = ({ news }) => {
             </div>
             <div className="about-me follow-me">
                 <div>FOLLOW ME ON</div>
-                <div className="social">
-                    <a href="#"><img src="https://cdn-icons-png.flaticon.com/512/49/49052.png" alt="Facebook" title="Facebook" /></a>
-                    <a href="#"><img src="https://cdn-icons-png.flaticon.com/512/48/48898.png" alt="Instagram" title="Instagram" /></a>
-                    <a href="#"><img src="https://cdn-icons-png.flaticon.com/512/48/48899.png" alt="Pinterest" title="Pinterest" /></a>
-                    <a href="#"><img src="https://cdn-icons-png.flaticon.com/512/49/49043.png" alt="Twiter" title="Twiter" /></a>
-                </div>
+                <SocialItems />
             </div>
         </div>
     )

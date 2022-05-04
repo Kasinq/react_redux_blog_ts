@@ -1,9 +1,11 @@
 import React, { useState } from 'react'
 import { useDispatch } from 'react-redux'
 import { useNavigate } from 'react-router'
+import { googleLogin } from '../api/fetchUser'
 import { IAuthUser } from '../models/IUser'
 import { fetchAuthUser, registration } from '../store/reducers/ActionCreators'
 import { AuthForm } from '../UI/AuthForm'
+import { FaGoogle } from 'react-icons/fa';
 
 export const Registration = () => {
 
@@ -17,7 +19,7 @@ export const Registration = () => {
 
     const registrate = async () => {
         try {
-            const data:IAuthUser = await registration(email, password, userName)
+            const data: IAuthUser = await registration(email, password, userName)
             history(`/react_redux_blog_ts`)
             dispatch(fetchAuthUser(data))
         } catch (e: any) {
@@ -40,6 +42,9 @@ export const Registration = () => {
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
             />
+            <div className='social_btn'>
+                <a href='https://stark-oasis-40782.herokuapp.com/auth/google'><FaGoogle className='google' title='Google' size="22px" /></a>
+            </div>
             <button onClick={registrate}>Registration</button>
         </AuthForm>
     )
